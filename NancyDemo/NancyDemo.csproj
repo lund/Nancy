@@ -53,6 +53,7 @@
     <Compile Include="ContentNegotiationModule.cs" />
     <Compile Include="HelloWorldModule.cs" />
     <Compile Include="ModelBindingModule.cs" />
+    <Compile Include="NancyTopshelfHost.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
