@@ -1,15 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Nancy.Hosting.Self;
 
 namespace NancyDemo
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
+			var nancyHost = new NancyHost(new HostConfiguration
+			{
+				UrlReservations = new UrlReservations
+				{
+					CreateAutomatically = true,
+				},
+			},
+			new Uri("http://localhost:8888/"));
+			nancyHost.Start();
+			Console.ReadLine();
 		}
 	}
 }
