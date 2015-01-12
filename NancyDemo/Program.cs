@@ -1,5 +1,4 @@
-﻿using System;
-using Nancy.Hosting.Self;
+﻿using Topshelf;
 
 namespace NancyDemo
 {
@@ -7,16 +6,12 @@ namespace NancyDemo
 	{
 		static void Main()
 		{
-			var nancyHost = new NancyHost(new HostConfiguration
+			HostFactory.Run(x => x.Service<NancyTopshelfHost>(s =>
 			{
-				UrlReservations = new UrlReservations
-				{
-					CreateAutomatically = true,
-				},
-			},
-			new Uri("http://localhost:8888/"));
-			nancyHost.Start();
-			Console.ReadLine();
+				s.ConstructUsing(name => new NancyTopshelfHost());
+				s.WhenStarted(bi => bi.Start());
+				s.WhenStopped(bi => bi.Stop());
+			}));
 		}
 	}
 }
