@@ -25,6 +25,14 @@ namespace NancyDemo
 			});
 		}
 
+		protected override void ApplicationStartup(TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
+		{
+			base.ApplicationStartup(container, pipelines);
+			pipelines.BeforeRequest += context => StartRequestLog(context);
+			pipelines.AfterRequest += context => LogEndRequest(container, context, null);
+			pipelines.OnError += (context, exception) => LogEndRequest(container, context, exception);
+		}
+
 		private Response StartRequestLog(NancyContext context)
 		{
 			var requestLog = new RequestLog(context.Request.Path)
